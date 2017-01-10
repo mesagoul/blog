@@ -19,4 +19,14 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
     }
+    /**
+    * @Route("/{id}", name="show_article")
+    */
+    public function showAction(Request $request){
+      return $this->render('default/show.html.twig',[
+        'article_id'=>$request->get("id"),
+        'base_dir'=>'heelllllo'
+      ]);
+
+    }
 }

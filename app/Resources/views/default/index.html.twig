@@ -1,35 +1,70 @@
 {% extends 'base.html.twig' %}
-
-{% block body %}
-<h1>Lucas</h1>
-<p>Ello</p>
+{% block title %}
+Home
+{% endblock %}
+{% block img_une %}
+{{ asset('bundles/clean-blog/img/home-bg.jpg') }}
 {% endblock %}
 
-{% block stylesheets %}
-<style>
-    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
-    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
-    h1 { font-size: 36px; }
-    h2 { font-size: 21px; margin-bottom: 1em; }
-    p { margin: 0 0 1em 0; }
-    a { color: #0000F0; }
-    a:hover { text-decoration: none; }
-    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
-    #container { padding: 2em; }
-    #welcome, #status { margin-bottom: 2em; }
-    #welcome h1 span { display: block; font-size: 75%; }
-    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
-    #icon-book { display: none; }
+{% block body %}
 
-    @media (min-width: 768px) {
-        #wrapper { width: 80%; margin: 2em auto; }
-        #icon-book { display: inline-block; }
-        #status a, #next a { display: block; }
 
-        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
-    }
-</style>
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2 class="post-title">
+                        Man must explore, and this is exploration at its greatest
+                    </h2>
+                    <h3 class="post-subtitle">
+                        Problems look mighty small from 150 miles up
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
+            </div>
+            <hr>
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2 class="post-title">
+                        I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
+                    </h2>
+                </a>
+                <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 18, 2014</p>
+            </div>
+            <hr>
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2 class="post-title">
+                        Science has not yet mastered prophecy
+                    </h2>
+                    <h3 class="post-subtitle">
+                        We predict too much for the next year and yet far too little for the next ten.
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</p>
+            </div>
+            <hr>
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2 class="post-title">
+                        Failure is not an option
+                    </h2>
+                    <h3 class="post-subtitle">
+                        Many say exploration is part of our destiny, but it’s actually our duty to future generations.
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on July 8, 2014</p>
+            </div>
+            <hr>
+            <!-- Pager -->
+            <ul class="pager">
+                <li class="next">
+                    <a href="#">Older Posts &rarr;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}

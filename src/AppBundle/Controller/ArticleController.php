@@ -38,15 +38,53 @@ class ArticleController extends Controller
   /**
    * @Route("/add", name="article_add")
    */
-   public function addAction()
+   public function addAction(Request $request)
   {
     $article = new Article();
     $form = $this->createForm(ArticleType::class, $article);
+    $form->handleRequest($request); // validation
+    // BDD
+    if($form->isValid()){
+      // recupere tables
+      $em = $this->getDoctrine()->getManager();
+      // requete pour insertion
+      $em->persist($article);
+      // execute
+      $em->flush();
+
+      $this->addFlash("success",'The article was successfully saved in database !');
+      return $this->redirectToRoute('article_homepage');
+    }
     return $this->render('article/add.html.twig',[
       'articleForm'=> $form->createView(),
       "img" => $this->getImg()
     ]);
   }
+  /**
+  * @Route(
+  * "/update/{id}",
+  * name="article_update",
+  * requirements={"id" = "\d+"}
+  * )
+  */
+  public function updateAction(Article $article, Request $request)
+  {
+    $form = $this->createForm(ArticleType::class, $article);
+    $form->handleRequest($request); // validation
+    if($form->isValid()){
+      // recupere tables
+      $em = $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash("success",'The article was successfully updated in database !');
+      return $this->redirectToRoute('article_homepage');
+    }
+    return $this->render('article/add.html.twig',[
+      'articleForm'=> $form->createView(),
+      'article'=> $article,
+      "img" => $this->getImg()
+    ]);
+  }
+
   public function getImg(){
     $listImg = scandir("./bundles/clean-blog/img");
     unset($listImg[0]);

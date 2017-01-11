@@ -7,16 +7,24 @@ Add_page
 {% endblock %}
 
 {% block body %}
+{% if 'article_add' == app.request.get('_route') %}
+  {% set submitButton ='add' %}
+  {% set title = 'Add a new article' %}
+{% else %}
+  {% set submitButton = 'send' %}
+  {% set title = 'Update the article "'~ article.title ~'"' %}
+{% endif %}
 <article>
   <div class="container">
     <div class="row">
-      {{ form_start(articleForm) }}
+      <h1>{{ title }}</h1>
+      {{ form_start(articleForm , {'attr': {'novalidate': 'novalidate'}}) }}
       {{ form_row(articleForm.title) }}
       {{ form_row(articleForm.header_image) }}
       {{ form_row(articleForm.author) }}
       {{ form_row(articleForm.content) }}
-      <input type="submit" name="send" value="Send">
-      {{ form_end(articleForm) }}    
+      <input class="btn btn-success pull-left" type="submit" name="send" value="{{ submitButton }}">
+      {{ form_end(articleForm) }}
     </div>
   </div>
 </article>

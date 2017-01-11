@@ -1,3 +1,10 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+    # redirecting the root
+redirect_homepage:
+    path: / #user tap in explorer
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: article_homepage
+        permanent: true

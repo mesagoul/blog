@@ -23,7 +23,7 @@ Class Article
   private $title;
 
   /**
-  * @ORM\ Column(type="string",length=255)
+  * @ORM\ Column(nullable=true)
   * @Assert\Image()
   * )
   */

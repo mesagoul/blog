@@ -81,13 +81,19 @@ class ArticleController extends Controller
   public function updateAction(Article $article, Request $request)
   {
     $articleImagePath = $article->getHeaderImage();
-    $article->setHeaderImage(
-      new File($this->getParameter("file_path").$articleImagePath)
-    );
+    if(null != $articleImagePath){
+      $article->setHeaderImage(
+        new File($this->getParameter("file_path").$articleImagePath)
+      );
+    }
+
     $form = $this->createForm(ArticleType::class, $article);
     $form->handleRequest($request); // validation
     if($form->isValid()){
       $this->get("image.uploader")->upload($article);
+      if(!$article->getHeaderImage()){
+              $article->setHeaderImage($articleImagePath);
+            }
       $em = $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash("success",'The article was successfully updated in database !');

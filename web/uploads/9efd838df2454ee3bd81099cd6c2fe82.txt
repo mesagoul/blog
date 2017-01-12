@@ -1,0 +1,59 @@
+------------------------- Best practices -------------------------
+------Principes STUPID
+S -> singleton :
+  - ex: MyClass::getInstance() -> rend toujours le même objet
+  - Rend le code non-testable (test unitaires)
+T -> Tight Coupling
+  - Ne pas instanier les dépendances dans le constructeur
+  - Rend le code non-testable (test unitaires)
+U -> Untestability
+  - Il faut pouvoir tester son code
+P -> Premature optimisation
+  - Répondre au problème
+  - Ne pas prévoir les besoin futurs car le code changera tout le temps
+I -> Indescriptible numming
+  - Avoir des bons noms de méthode
+D -> Duplication
+  - Ne pas dupliquer du code
+
+
+
+
+------Principes SOLID
+PHP DOC ce qui est utile (que ce qu'on ne pourrait pas comprendre plus tard)
+Ecrire des petites functions et des petites méthodes (avec des conditions simples)
+Toujours utiliser le système de gestion des erreurs (try catch)
+Faire des test unitaires
+Utiliser des frameworks
+Prendre le temps de configurer son environnement php
+S -> Single Responsabilidy :
+  - Une méthode doit répondre a un métier
+O -> Open/Close principe
+  - Une class doit être ouverte à l'extention mais fermée à la modification
+L -> Liskov (Principe de Substitution)
+  - Meme si je dérive de class, il faut que mon code continue de fonctionner
+I -> Interface segregation
+  - Avoir des interfaces qui ne font qu'une seule chose
+D -> Dependancy injection
+  - Pour les dépendances, il faut mieux dépendre d'abstraction que de classes concrètes
+
+
+-------- KISS
+
+Keep
+It
+Simple,
+Stupid
+-> Il faut écrire le code le plus simple possible
+
+
+--------------------------------- MVC -----------------------------------------
+Model vue Controller
+Le model est tout ce qui contient la logique métier (api, bdd, ...)
+Le controller prend une requette http et rend une reponse http, il peut aussi générer nue vue en faisant appel a la vue et en lui fournissant des informations.
+La vue ne communique jamais avec le model
+
+Requette http -> controller
+--------------------------------------------------------------------------------
+
+symfony -> FRAMEWORK HTTP

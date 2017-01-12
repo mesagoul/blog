@@ -24,6 +24,8 @@ Class Article
 
   /**
   * @ORM\ Column(type="string",length=255)
+  * @Assert\Image()
+  * )
   */
   private $header_image;
 

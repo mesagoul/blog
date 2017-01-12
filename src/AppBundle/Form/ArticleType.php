@@ -5,6 +5,9 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+
 
 class ArticleType extends AbstractType
 {
@@ -17,10 +20,17 @@ class ArticleType extends AbstractType
             'placeholder' => "Title of the article"
         ]
       ])
-      ->add('header_image')
+      ->add('header_image',FileType::class,[
+        'label'=> 'Upload header Image'
+      ])
       ->add('author')
-      ->add('content')
-      ;
+      ->add('content', CKEditorType::class,
+          array(
+            'config' => array(
+              'uiColor' => '#7EA0B7',
+            )
+          )
+        );
   }
 
 }

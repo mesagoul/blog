@@ -1,0 +1,18 @@
+Initialiser le repo git :
+ - git init
+ - git remote urlRemote
+ ----- pour ajouter un remote : git remote add nomRemote urlRemote
+ ----- pour supprimer un remote : git remote rm nomRemote
+ - git status pour voir ce qui a été changé
+ - git add . pour ajouter tous les fichiers unstracks
+ - git commit -m "Initial commit"
+ - git push origin master
+ - git pull irigin master
+ - git fetch pour se resynchroniser
+
+ ------------- Twig ---------------------
+ http://twig.sensiolabs.org/doc/2.x/
+
+ {% faire quelque chose %}
+ {{ appeler quelque chose }}
+ fonction : parent  :

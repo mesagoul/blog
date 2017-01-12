@@ -1,0 +1,155 @@
+------------------------------- HTTP ----------------------------------
+Protocole -> doit suivre un certain nombre de règles
+          -> maniere de discuter entre un client et un serveur (deux machines)
+          -> on a une requete et une reponse
+Client = Serveur = logiciel (Ex: chrome pour client, apache pour serveur).
+
+
+-----Requette http :
+---1ere ligne :
+Methode http
+URI (ex : */users/)
+Version du protocol (ex: HTTP1.1)
+---2eme ligne : headers
+Format de donnée
+Host
+---3eme ligne : body (normalement pas avec GET)
+------Reponse HTTP
+L'application la créée
+---1ere ligne :
+Version du protocol (ex: HTTP1.1)
+Code status (Ex: 201 )
+Text : (ex : CREATED)
+---2eme ligne : headers
+---3eme ligne : body (Ex : <html></html>)
+
+
+
+
+------Code status :
+Va de 100 à 599.
+100 -> 199 : Informationnel
+200 -> 299 : Success
+  200 Success
+  201 : Created
+300 -> 399 : Redirections
+  302 : redirections temporaires
+400 -> 499 : Erreur client
+  401 : Authentification
+  403 : Pas d'autorisation (droits)
+500 -> 599 : Erreur Serveur
+
+
+
+Document RFC2616 qui définit des normes
+Methode http :
+ - GET -> Attention : on ne change rien au serveur !!
+ - POST
+ - PUT -> MAJ de toutes les données
+ - PATCH -> MAJ de données précise et comment le mettre à jour.
+ - DELETE
+Methode http moins utilisés :
+ - CONNECT
+ - TRACE
+ - OPTION
+ - HEAD
+
+<form> par défaut : méthode GET
+
+------------------------------CLASS------------------------------------------
+
+Ressources :
+- CODING STYLES php : http://www.php-fig.org/ -> PSR-1, PSR-2
+- PSR-4 -> autoloading
+- php cs fixer -> pour auto normaliser le code :)
+
+public $property :
+$obj = new MyClass();
+$obj->property
+
+
+private $property :
+$obj = new MyClass();
+$obj->getProperty (getters et setters)
+-> C'est l'encapsultation
+
+
+Statique : partager avec tout le monde
+Class MyClass
+{
+  public static $property
+}
+MyClass::property;
+depuis sa propre class : self::$proprty
+
+
+Abstract class -> pour spécaliser les objets manipulés
+-> fille : Class fille extends Mere
+Class Mère peut forcer à avoir une fonction: public abstract function MyFunction();
+
+
+Classes ou méthode finales : une classe qui ne peut pas être étendue (une classe stérile ahah)É
+
+
+----------------------------- TRAIT ------------------------------------------
+Répond au problème de l'héritage multiple
+
+-- Création :
+Trait MyTrait
+{
+  public function myFunction(){
+   return 'quelqueChose';
+  }
+}
+-- Utilisation :
+
+Class MyClass
+{
+use MyTrait, MyTrait2;
+}
+
+-- utiilisation :
+$obj = new MyClass();
+$obj->myFunction();
+
+
+function php :
+insteadOf : ex : myTrait::myFunction insteadf MyTrait2
+instanceOf : ex : http://php.net/manual/fr/language.operators.type.php
+
+
+------------------------------INTERFACES-------------------------------------
+Pourquoi faire ? : Est ce que j'ai besoin de spécialiser ?
+Est ce que j'ai des attributs en commun ?
+
+Composé uniquement de méthodes public
+Interfacee MyInterface
+{
+const MY_CONSTANT = 'valeur'
+public function myFunction();
+}
+
+
+-> mMyClass implements MyInterface
+
+une interface peut hériter d'une autre interface  avec extends.
+
+-------------------------------- NAMESPACE --------------------------------------
+deux classes avec le même nom doivent voir un namespace différent
+use model\MyClass
+if(2 use d'un meme nom de class)
+{
+use model\MyClass
+use script\MyClass as MyClass2
+}
+
+--------------------- Méthodes magiques ---------------------------------
+__construct
+Pour faire une copie :
+$obj2 = clone $obj;
+
+
+
+---------------------------------------------------------------------------
+Aller voir  DOC PHP : set_exception_handler -> controle
+SPL = Standard Php Library

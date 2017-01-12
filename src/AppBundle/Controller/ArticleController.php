@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Article;
 use AppBundle\Form\ArticleType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
 * @Route("/article")
@@ -19,7 +21,11 @@ class ArticleController extends Controller
    */
   public function homePageAction()
   {
-      return $this->render('article/index.html.twig');
+    $em = $this->getDoctrine()->getManager();
+    $articles = $em->getRepository('AppBundle:Article')->findAll();
+      return $this->render('article/index.html.twig',[
+        "articles"=> $articles
+      ]);
   }
   /**
   * @Route(
@@ -29,9 +35,13 @@ class ArticleController extends Controller
   *    name="article_show"
   *    )
   */
-  public function showAction()
+  public function showAction(Article $article)
   {
-    return $this->render('article/show.html.twig');
+    return $this->render('article/show.html.twig',[
+      'article'=> $article,
+      'img' => $this->getImg(),
+      'article_img' => $article->getHeaderImage()
+    ]);
   }
 
 
@@ -45,6 +55,7 @@ class ArticleController extends Controller
     $form->handleRequest($request); // validation
     // BDD
     if($form->isValid()){
+      $this->get("image.uploader")->upload($article);
       // recupere tables
       $em = $this->getDoctrine()->getManager();
       // requete pour insertion
@@ -53,7 +64,7 @@ class ArticleController extends Controller
       $em->flush();
 
       $this->addFlash("success",'The article was successfully saved in database !');
-      return $this->redirectToRoute('article_homepage');
+      return $this->redirectToRoute('article_show', ['id'=> $article->getId()]);
     }
     return $this->render('article/add.html.twig',[
       'articleForm'=> $form->createView(),
@@ -69,19 +80,24 @@ class ArticleController extends Controller
   */
   public function updateAction(Article $article, Request $request)
   {
+    $articleImagePath = $article->getHeaderImage();
+    $article->setHeaderImage(
+      new File($this->getParameter("file_path").$articleImagePath)
+    );
     $form = $this->createForm(ArticleType::class, $article);
     $form->handleRequest($request); // validation
     if($form->isValid()){
-      // recupere tables
+      $this->get("image.uploader")->upload($article);
       $em = $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash("success",'The article was successfully updated in database !');
-      return $this->redirectToRoute('article_homepage');
+    return $this->redirectToRoute('article_show', ['id'=> $article->getId()]);
     }
     return $this->render('article/add.html.twig',[
       'articleForm'=> $form->createView(),
       'article'=> $article,
-      "img" => $this->getImg()
+      "img" => $this->getImg(),
+      'oldArticleImage' => $articleImagePath
     ]);
   }
 

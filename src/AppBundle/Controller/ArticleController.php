@@ -46,7 +46,7 @@ class ArticleController extends Controller
 
 
   /**
-   * @Route("/add", name="article_add")
+   * @Route("/admin/add", name="article_add")
    */
    public function addAction(Request $request)
   {
@@ -73,7 +73,7 @@ class ArticleController extends Controller
   }
   /**
   * @Route(
-  * "/update/{id}",
+  * "/admin/update/{id}",
   * name="article_update",
   * requirements={"id" = "\d+"}
   * )

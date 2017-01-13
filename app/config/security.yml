@@ -4,14 +4,38 @@ security:
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        in_memory: # The name of the provider
+            memory:
+                users:
+                    lucas:
+                        password: $2y$13$u6TZpDp6Bb0O/RPpbjkGC.ao.xOBGhTKqEzt/ez4NpM4RpMiLBBh.
+                        roles: ROLE_ADMIN
+                    Pierre:
+                        password: $2y$13$jweBJdaKEwa7jgENPcLcG.u/IzJAA8pO7R6YTAsdeEMGXTJcEgWay
+                        roles: ROLE_USER
+    encoders:
+        Symfony\Component\Security\Core\User\User: bcrypt
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        secured_area:
+            pattern: ^/article/admin # For every request having a url beginning with /article, the article is activated
+            provider: in_memory
+            form_login: # The way the usier is going to be ask to be authenticated
+                check_path: /article/admin/auth-check # The url where you will be redirected on submit your form
+                login_path: /login # The user will be redireted toward this URL, wich is the login form, where the user needs to validate
+                username_parameter: username # The name of the field used for the usernam
+                password_parameter: password #The name of the field used for the password
+                always_use_default_target_path: true # Always redirect the userwhen the form is valid & success
+                default_target_path: /
+            logout:
+                path:   /article/admin/logout
+                target: /
+
 
         main:
             anonymous: ~

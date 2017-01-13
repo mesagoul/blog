@@ -49,11 +49,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/app_dev.php/">Home</a>
+                        <a href="{{ path('article_homepage') }}">Home</a>
                     </li>
                     <li>
-                        <a href="/app_dev.php/article/add">Add</a>
+                        <a href="{{ path('article_add') }}">Add</a>
                     </li>
+                    {% if app.user %}
+                    <li>
+                        <a href="{{ path('logout') }}">Logout</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

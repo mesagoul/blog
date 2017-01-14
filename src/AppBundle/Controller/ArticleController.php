@@ -107,6 +107,31 @@ class ArticleController extends Controller
     ]);
   }
 
+  /**
+  * @Route(
+  * "/admin/delete/{id}",
+  * name="article_delete",
+  * requirements={"id" = "\d+"}
+  * )
+  */
+  public function deleteAction(Article $article, Request $request)
+  {
+    $em = $this->getDoctrine()->getManager();
+
+    $article = $em->getRepository('AppBundle:Article')->find($article->getId());
+
+    if (!$article) {
+        throw $this->createNotFoundException(
+            'No product found for id '.$article->getId()
+        );
+    }
+
+    $em->remove($article);
+    $em->flush();
+
+    return $this->redirectToRoute('article_homepage');
+  }
+
   public function getImg(){
     $listImg = scandir("./bundles/clean-blog/img");
     unset($listImg[0]);

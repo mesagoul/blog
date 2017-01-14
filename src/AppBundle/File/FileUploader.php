@@ -12,9 +12,10 @@ Class FileUploader
   }
   public function upload($subject)
   {
-    if(!$file = $subject->getHeaderImage()){
+    if($subject->getHeaderImage() == null){
       return;
     }
+
     $file = $subject->getHeaderImage();
 
     $fileName = md5(uniqid()).'.'.$file->guessExtension();

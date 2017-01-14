@@ -16,13 +16,16 @@ showpage
                   <h2 class="post-title">
                       {{ article.title}}
                   </h2>
+                {% if article.headerImage %}
                     <img src="{{ article_img }}" width="100%" class="img-responsive" style='margin: 0 auto;'>
+                  {% endif %}
                   <p class="post-content">
                       {{ article.content|purify }}
                   </p>
               <p class="post-meta">Posted by <a href="#">{{ article.author }}</a> on {{ article.createdAt|date('l jS \\of F Y') }}</p>
           </div>
           <a href="{{ path('article_update', {'id': article.id}) }}" class="btn btn-info pull-right">Modify</a>
+          <a href="{{ path('article_delete', {'id': article.id}) }}" class="btn btn-danger pull-right">Delete</a>
         </div>
     </div>
   </div>

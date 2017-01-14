@@ -23,8 +23,7 @@ Add_page
       {{ form_row(articleForm.header_image) }}
       {% if 'article_update' == app.request.get('_route') %}
         <img src="{{ oldArticleImage }}" width='100'/>
-      {% endif %}
-      {{ form_row(articleForm.author) }}
+      {% endif %} 
       {{ form_row(articleForm.content) }}
       <input class="btn btn-success pull-left" type="submit" name="send" value="{{ submitButton }}">
       {{ form_end(articleForm) }}

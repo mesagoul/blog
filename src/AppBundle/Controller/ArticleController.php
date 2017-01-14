@@ -58,6 +58,7 @@ class ArticleController extends Controller
       $this->get("image.uploader")->upload($article);
       // recupere tables
       $em = $this->getDoctrine()->getManager();
+      $article->setAuthor($this->getUser());
       // requete pour insertion
       $em->persist($article);
       // execute

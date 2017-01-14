@@ -23,7 +23,6 @@ class ArticleType extends AbstractType
       ->add('header_image',FileType::class,[
         'label'=> 'Upload header Image'
       ])
-      ->add('author')
       ->add('content', CKEditorType::class,
           array(
             'config' => array(

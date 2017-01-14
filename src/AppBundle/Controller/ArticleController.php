@@ -37,10 +37,12 @@ class ArticleController extends Controller
   */
   public function showAction(Article $article)
   {
+    $manage_enable = ($article->getAuthor() == $this->getUser()->getUsername()) ? true : false;
     return $this->render('article/show.html.twig',[
       'article'=> $article,
       'img' => $this->getImg(),
-      'article_img' => $article->getHeaderImage()
+      'article_img' => $article->getHeaderImage(),
+      'manage_enable' => $manage_enable
     ]);
   }
 
@@ -54,7 +56,7 @@ class ArticleController extends Controller
     $form = $this->createForm(ArticleType::class, $article);
     $form->handleRequest($request); // validation
     // BDD
-    if($form->isValid()){
+    if($form->isSubmitted()){
       $this->get("image.uploader")->upload($article);
       // recupere tables
       $em = $this->getDoctrine()->getManager();
@@ -81,6 +83,10 @@ class ArticleController extends Controller
   */
   public function updateAction(Article $article, Request $request)
   {
+    $access_enable = ($article->getAuthor() == $this->getUser()->getUsername()) ? true : false;
+    if(!$access_enable){
+        return $this->redirectToRoute('article_homepage');
+    }
     $articleImagePath = $article->getHeaderImage();
     if(null != $articleImagePath){
       $article->setHeaderImage(
@@ -90,7 +96,7 @@ class ArticleController extends Controller
 
     $form = $this->createForm(ArticleType::class, $article);
     $form->handleRequest($request); // validation
-    if($form->isValid()){
+    if($form->isSubmitted()){
       $this->get("image.uploader")->upload($article);
       if(!$article->getHeaderImage()){
               $article->setHeaderImage($articleImagePath);
@@ -117,6 +123,10 @@ class ArticleController extends Controller
   */
   public function deleteAction(Article $article, Request $request)
   {
+    $access_enable = ($article->getAuthor() == $this->getUser()->getUsername()) ? true : false;
+    if(!$access_enable){
+        return $this->redirectToRoute('article_homepage');
+    }
     $em = $this->getDoctrine()->getManager();
 
     $article = $em->getRepository('AppBundle:Article')->find($article->getId());
